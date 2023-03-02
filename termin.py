@@ -13,9 +13,10 @@ from selenium_stealth import stealth
 import time
 import sys
 import chime
-from configs.config import request
+from configs.config import parse_form, form_default
 
-print(f'//*[@for="{request["service"]}"]')
+request = parse_form(form_default)
+print(request)
 
 session_timeout = 30*60
 delay_short = 0.5
@@ -139,7 +140,7 @@ with webdriver.Chrome(service=s, options=options) as driver:
     time.sleep(delay_short)
     select_live_in_berlin = driver.find_element(By.ID, "xi-sel-427")
     time.sleep(delay_short)
-    Select(select_live_in_berlin).select_by_value("1")
+    Select(select_live_in_berlin).select_by_value(request["live_together"])
 
     time.sleep(delay_short)
     select_partner = driver.find_element(By.ID, "xi-sel-428")
@@ -148,13 +149,13 @@ with webdriver.Chrome(service=s, options=options) as driver:
 
     time.sleep(delay_short)
     radio_extend = driver.find_element(
-        By.XPATH, f'//*[@for="{request["service"]}"]')
+        By.XPATH, f'//*[@for="{request["service_category"]}"]')
     # time.sleep(delay_short)
     radio_extend.click()
 
     time.sleep(delay_short)
     radio_purpose_studies = driver.find_element(
-        By.XPATH, f'//*[@for="{request["service_category"]}"]')
+        By.XPATH, f'//*[@for="{request["service"]}"]')
     # time.sleep(delay_short)
     radio_purpose_studies.click()
 
