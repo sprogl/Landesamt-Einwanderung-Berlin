@@ -1,15 +1,5 @@
 import configs.maps
 
-form_default = {
-    "citizenship_main": "Indien",
-    "count_applicants": 2,
-    "live_together": "ja",
-    "citizenship_partner": "Indien",
-    "service_category": "Aufenthaltstitel - verlängern",
-    "service": "Studium und Ausbildung",
-    "type_residence_permit": "Aufenthaltserlaubnis zum Studium (§ 16b)"
-}
-
 
 def parse_form(form: dict):
     return {

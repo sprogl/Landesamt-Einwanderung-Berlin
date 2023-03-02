@@ -13,10 +13,13 @@ from selenium_stealth import stealth
 import time
 import sys
 import chime
-from configs.config import parse_form, form_default
+import json
+import configs.config
 
-request = parse_form(form_default)
-print(request)
+with open("config.json", "r") as config_file:
+    configs_json = config_file.read()
+    form = json.loads(configs_json)
+    request = configs.config.parse_form(form)
 
 session_timeout = 30*60
 delay_short = 0.5
@@ -79,7 +82,7 @@ def wait_loading(browser, timeout=None):
 def catch_termin_page(browser):
     try:
         wait_find(
-            browser, f'//*[@for="{request["service"]}"]', attribute=By.XPATH, timeout=5)
+            browser, f'//label[@for="{request["service"]}"]', attribute=By.XPATH, timeout=5)
     except TimeoutError:
         for i in range(3):
             chime.info(sync=True)
@@ -142,20 +145,22 @@ with webdriver.Chrome(service=s, options=options) as driver:
     time.sleep(delay_short)
     Select(select_live_in_berlin).select_by_value(request["live_together"])
 
-    time.sleep(delay_short)
-    select_partner = driver.find_element(By.ID, "xi-sel-428")
-    time.sleep(delay_short)
-    Select(select_partner).select_by_value(request["code_citizenship_partner"])
+    if request["live_together"] == "1":
+        time.sleep(delay_short)
+        select_partner = driver.find_element(By.ID, "xi-sel-428")
+        time.sleep(delay_short)
+        Select(select_partner).select_by_value(
+            request["code_citizenship_partner"])
 
     time.sleep(delay_short)
     radio_extend = driver.find_element(
-        By.XPATH, f'//*[@for="{request["service_category"]}"]')
+        By.XPATH, f'//label[@for="{request["service_category"]}"]')
     # time.sleep(delay_short)
     radio_extend.click()
 
     time.sleep(delay_short)
     radio_purpose_studies = driver.find_element(
-        By.XPATH, f'//*[@for="{request["service"]}"]')
+        By.XPATH, f'//label[@for="{request["service"]}"]')
     # time.sleep(delay_short)
     radio_purpose_studies.click()
 
