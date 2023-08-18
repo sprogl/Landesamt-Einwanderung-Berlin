@@ -182,13 +182,10 @@ map_citizenship_code = {
     "Vereinigte Arabische Emirate": "469",
     "Vereinigte Staaten von Amerika": "368",
     "Vietnam": "432",
-    "Zentralafrikanische Republik": "289"
+    "Zentralafrikanische Republik": "289",
 }
 
-map_live_together = {
-    "ja": "1",
-    "nein": "2"
-}
+map_live_together = {"ja": "1", "nein": "2"}
 
 map_partner_citizenship_code = {
     "Deutschland": "0-0",
@@ -404,7 +401,7 @@ map_partner_citizenship_code = {
     "Vereinigte Staaten von Amerika": "368-0",
     "Vietnam": "432-0",
     "Zentralafrikanische Republik": "289-0",
-    "Zypern": "181-1"
+    "Zypern": "181-1",
 }
 
 map_service_category = {
@@ -412,7 +409,9 @@ map_service_category = {
     "Aufenthaltstitel - verlängern": "2",
     "Aufenthaltstitel in einen neuen Pass übertragen": "3",
     "Niederlassungserlaubnis beantragen": "4",
-    "Reiseausweis - Neuausstellung": "5"
+    "Reiseausweis - Neuausstellung": "5",
+    "Aufenthaltsgestattung (Asyl) - verlängern": "6",
+    "Duldung - verlängern": "7",
 }
 
 map_service = {
@@ -422,7 +421,7 @@ map_service = {
     "Humanitäre Gründe": "5",
     "Besondere Aufenthaltsrechte": "6",
     "Niederlassungserlaubnis": "99",
-    "Reiseausweis": "99"
+    "Reiseausweis": "99",
 }
 
 map_residence_permit = {
@@ -435,6 +434,7 @@ map_residence_permit = {
     "Aufenthaltserlaubnis zur Anerkennung einer ausländischen Berufs-Qualifikation in einem nicht reglementierten Beruf (§ 16d Abs. 3)": "329358",
     "Aufenthaltserlaubnis zur Aufnahme eines Praktikums (§ 19c Abs. 1)": "305303",
     "Aufenthaltserlaubnis zur Studienvorbereitung (§ 16b Abs. 1)": "305156",
+    "Aufenthaltserlaubnis für eine qualifizierte Beschäftigung in der Informations- und Kommunikationstechnologie (§19c Abs. 2)": "350480",
     "Aufenthaltserlaubnis für Fachkräfte mit akademischer Ausbildung (§ 18b Abs. 1)": "329328",
     "Aufenthaltserlaubnis für Fachkräfte mit Berufsausbildung (§ 18a)": "305304",
     "Aufenthaltserlaubnis für Fachkräfte zur Arbeitsplatzsuche - Erteilung (§ 20)": "324661",
@@ -458,5 +458,7 @@ map_residence_permit = {
     "Übertragen eines Aufenthaltsdokument-GB auf einen neuen Pass": "330863",
     "Niederlassungserlaubnis für Familienangehörige von Deutschen (§ 28 Abs. 2)": "327012",
     "Niederlassungserlaubnis für Kinder - Erteilung (§ 35)": "324863",
-    "Reiseausweis - Neuausstellung": "325471"
+    "Reiseausweis - Neuausstellung": "325471",
+    "Aufenthaltsgestattung - verlängern": "350429",
+    "Duldung - verlängern": "350432",
 }
