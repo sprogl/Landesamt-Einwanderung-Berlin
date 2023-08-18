@@ -214,10 +214,8 @@ with webdriver.Chrome(service=s, options=options) as driver:
     )
     radio_extend.click()
 
-    # Select the general perpose of permit requested
-    print(request["service_category"][-1])
-    print(configs.config.general_perpose_requireds)
-    if request["service_category"][-1] in configs.config.general_perpose_requireds:
+    # Select the general perpose of permit (if required)
+    if configs.config.general_perpose_required(request["service_category"]):
         time.sleep(delay_short)
         radio_purpose_of_permit_general = driver.find_element(
             By.XPATH, f'//label[@for="{request["service"]}"]'

@@ -1,12 +1,14 @@
 import configs.maps
 
-general_perpose_requireds = [
-    configs.maps.map_service_category["Aufenthaltstitel - beantragen"],
-    configs.maps.map_service_category["Aufenthaltstitel - verlängern"],
-]
+
+def general_perpose_required(service_category: str) -> bool:
+    return service_category[-1] in [
+        configs.maps.map_service_category["Aufenthaltstitel - beantragen"],
+        configs.maps.map_service_category["Aufenthaltstitel - verlängern"],
+    ]
 
 
-def parse_form(form: dict):
+def parse_form(form: dict) -> dict:
     return {
         "code_citizenship": configs.maps.map_citizenship_code[form["citizenship_main"]],
         "count_applicants": str(form["count_applicants"]),
@@ -20,14 +22,14 @@ def parse_form(form: dict):
     }
 
 
-def display_options(field: str):
+def display_options(field: str) -> list:
     match field:
         case "citizenship_main":
             return configs.maps.map_citizenship_code.keys()
         case "count_applicants":
             return [n for n in range(1, 9)]
         case "live_together":
-            return ["ja", "nein"]
+            return configs.maps.map_live_together.keys()
         case "citizenship_partner":
             return configs.maps.map_partner_citizenship_code.keys()
         case "service_category":
