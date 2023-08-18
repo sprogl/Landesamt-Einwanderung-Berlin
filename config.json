@@ -1,9 +1,9 @@
 {
-    "citizenship_main": "Indien",
-    "count_applicants": 2,
-    "live_together": "ja",
+    "citizenship_main": "Iran, Islamische Republik",
+    "count_applicants": 1,
+    "live_together": "nein",
     "citizenship_partner": "Indien",
     "service_category": "Aufenthaltstitel - verlängern",
-    "service": "Studium und Ausbildung",
-    "type_residence_permit": "Aufenthaltserlaubnis zum Studium (§ 16b)"
+    "service": "Erwerbstätigkeit",
+    "type_residence_permit": "Aufenthaltserlaubnis für Fachkräfte mit akademischer Ausbildung (§ 18b Abs. 1)"
 }

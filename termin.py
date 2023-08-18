@@ -5,10 +5,12 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import Select, WebDriverWait
 import selenium.common.exceptions
+
 # from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.common.by import By
 from selenium_stealth import stealth
+
 # from fake_useragent import UserAgent
 import time
 import sys
@@ -21,16 +23,16 @@ with open("config.json", "r") as config_file:
     form = json.loads(configs_json)
     request = configs.config.parse_form(form)
 
-session_timeout = 30*60
+session_timeout = 30 * 60
 delay_short = 0.5
 delay_medium = 4
 delay_long = 30
 delay_very_long = 1800
 url = "https://otv.verwalt-berlin.de/ams/TerminBuchen/wizardng"
-if sys.platform == "linux":
-    path_to_driver = "~/.wdm/drivers/chromedriver/linux64/108.0.5359/chromedriver"
-elif sys.platform == "win32":
-    path_to_driver = ".\\chromedriver.exe"
+# if sys.platform == "linux":
+#     path_to_driver = "~/.wdm/drivers/chromedriver/linux64/108.0.5359/chromedriver"
+# elif sys.platform == "win32":
+#     path_to_driver = ".\\chromedriver.exe"
 
 
 def wait_find(browser, wait_for_element, attribute=By.ID, timeout=None):
@@ -66,9 +68,10 @@ def wait_loading(browser, timeout=None):
         while check and time.time() < final:
             time.sleep(delay_short)
             element_loading = wait_find(
-                browser, "loading", By.CLASS_NAME, timeout=timeout)
+                browser, "loading", By.CLASS_NAME, timeout=timeout
+            )
             block = element_loading.get_attribute("style")[8:14]
-            check = (block == " block" or block == "block;")
+            check = block == " block" or block == "block;"
         if time.time() > final:
             raise TimeoutError
     else:
@@ -76,13 +79,17 @@ def wait_loading(browser, timeout=None):
             time.sleep(delay_short)
             element_loading = wait_find(browser, "loading", By.CLASS_NAME)
             block = element_loading.get_attribute("style")[8:14]
-            check = (block == " block" or block == "block;")
+            check = block == " block" or block == "block;"
 
 
 def catch_termin_page(browser):
     try:
         wait_find(
-            browser, f'//label[@for="{request["service"]}"]', attribute=By.XPATH, timeout=5)
+            browser,
+            f'//label[@for="{request["service"]}"]',
+            attribute=By.XPATH,
+            timeout=5,
+        )
     except TimeoutError:
         for i in range(3):
             chime.info(sync=True)
@@ -99,20 +106,22 @@ options.add_argument("start-maximized")
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option("useAutomationExtension", False)
 options.add_argument("--incognito")
-options.add_experimental_option(
-    "prefs", {"profile.block_third_party_cookies": True})
+options.add_experimental_option("prefs", {"profile.block_third_party_cookies": True})
 # options.xperimental_option('detach', True)
-s = Service(path_to_driver)
+# s = Service(path_to_driver)
+s = Service()
 
 with webdriver.Chrome(service=s, options=options) as driver:
     # with webdriver.Chrome(service=s) as driver:
-    stealth(driver,
-            languages=["en-US", "en"],
-            vendor="Google Inc.",
-            platform="Win32",
-            webgl_vendor="Intel Inc.",
-            renderer="Intel Iris OpenGL Engine",
-            fix_hairline=True)
+    stealth(
+        driver,
+        languages=["en-US", "en"],
+        vendor="Google Inc.",
+        platform="Win32",
+        webgl_vendor="Intel Inc.",
+        renderer="Intel Iris OpenGL Engine",
+        fix_hairline=True,
+    )
 
     driver.get(url)
 
@@ -124,8 +133,7 @@ with webdriver.Chrome(service=s, options=options) as driver:
     check_box.click()
 
     time.sleep(delay_short)
-    button_continue = driver.find_element(
-        By.ID, "applicationForm:managedForm:proceed")
+    button_continue = driver.find_element(By.ID, "applicationForm:managedForm:proceed")
     # time.sleep(delay_short)
     button_continue.click()
 
@@ -149,24 +157,24 @@ with webdriver.Chrome(service=s, options=options) as driver:
         time.sleep(delay_short)
         select_partner = driver.find_element(By.ID, "xi-sel-428")
         time.sleep(delay_short)
-        Select(select_partner).select_by_value(
-            request["code_citizenship_partner"])
+        Select(select_partner).select_by_value(request["code_citizenship_partner"])
 
     time.sleep(delay_short)
     radio_extend = driver.find_element(
-        By.XPATH, f'//label[@for="{request["service_category"]}"]')
+        By.XPATH, f'//label[@for="{request["service_category"]}"]'
+    )
     # time.sleep(delay_short)
     radio_extend.click()
 
     time.sleep(delay_short)
     radio_purpose_studies = driver.find_element(
-        By.XPATH, f'//label[@for="{request["service"]}"]')
+        By.XPATH, f'//label[@for="{request["service"]}"]'
+    )
     # time.sleep(delay_short)
     radio_purpose_studies.click()
 
     time.sleep(delay_short)
-    radio_purpose_study = driver.find_element(
-        By.ID, request["type_residence_permit"])
+    radio_purpose_study = driver.find_element(By.ID, request["type_residence_permit"])
     # time.sleep(delay_short)
     radio_purpose_study.click()
 
@@ -182,7 +190,8 @@ with webdriver.Chrome(service=s, options=options) as driver:
         time.sleep(delay_short)
         catch_termin_page(driver)
         button_continue = wait_find(
-            driver, "applicationForm:managedForm:proceed", timeout=delay_long)
+            driver, "applicationForm:managedForm:proceed", timeout=delay_long
+        )
         # time.sleep(delay_short)
         button_continue.click()
 
